@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "624138488739",
+    "firebase_url": "https://informator-tfzr.firebaseio.com",
+    "project_id": "informator-tfzr",
+    "storage_bucket": "informator-tfzr.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:624138488739:android:1d2427b36dada1d5bc6816",
+        "android_client_info": {
+          "package_name": "com.example.informatortfzr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "624138488739-ee5aap44b2vb899fgg2ahddtrfcf6107.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlrUV7oYMOH95Gmta-1FGz0EGGJInYY-s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "624138488739-ee5aap44b2vb899fgg2ahddtrfcf6107.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
