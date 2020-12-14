@@ -14,57 +14,65 @@ class PostWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: FutureBuilder(
-      future: getPostList(),
+        child: StreamBuilder(
+      stream: getFollowingList(),
       builder: (
         context,
         snapshot,
       ) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: Text('Učitavanje...'));
+          return Scaffold();
         } else {
-          return ListView.builder(
-              itemCount: snapshot.data.length,
-              itemBuilder: (_, index) {
-                if (snapshot.data[index].data()['author'] ==
-                    FirebaseAuth.instance.currentUser.uid) {
-                  var cardType = snapshot.data[index].data()['cardType'];
-                  if (cardType == 'student')
-                    return CardTypes.getStudentCard(
-                        context, snapshot.data[index], true);
-                  else if (cardType == 'professor')
-                    return CardTypes.getProfessorCard(
-                        context, snapshot.data[index], true);
-                  else if (cardType == 'office')
-                    return CardTypes.getOfficeCard(
-                        context, snapshot.data[index], true);
-                  else if (cardType == 'parlament')
-                    return CardTypes.getParlamentCard(
-                        context, snapshot.data[index], true);
-                  else if (cardType == 'admin')
-                    return CardTypes.getAdminCard(
-                        context, snapshot.data[index], true);
-                  else
-                    return null;
+          return StreamBuilder(
+              stream: getPostList(snapshot.data['following']),
+              builder: (context, snap) {
+                if (snap.connectionState == ConnectionState.waiting) {
+                  return Center(child: Text('Učitavanje...'));
+                } else if (!snap.hasData) {
+                  return Center(
+                    child: Text('Tabla je prazna'),
+                  );
                 } else {
-                  var cardType = snapshot.data[index].data()['cardType'];
-                  if (cardType == 'student')
-                    return CardTypes.getStudentCard(
-                        context, snapshot.data[index], false);
-                  else if (cardType == 'professor')
-                    return CardTypes.getProfessorCard(
-                        context, snapshot.data[index], false);
-                  else if (cardType == 'office')
-                    return CardTypes.getOfficeCard(
-                        context, snapshot.data[index], false);
-                  else if (cardType == 'parlament')
-                    return CardTypes.getParlamentCard(
-                        context, snapshot.data[index], false);
-                  else if (cardType == 'admin')
-                    return CardTypes.getAdminCard(
-                        context, snapshot.data[index], false);
-                  else
-                    return null;
+                  return new ListView(children:
+                      snap.data.docs.map<Widget>((DocumentSnapshot document) {
+                    if (document['author'] ==
+                        FirebaseAuth.instance.currentUser.uid) {
+                      var cardType = document['cardType'];
+                      if (cardType == 'student')
+                        return CardTypes.getStudentCard(
+                            context, document, true);
+                      else if (cardType == 'professor')
+                        return CardTypes.getProfessorCard(
+                            context, document, true);
+                      else if (cardType == 'office')
+                        return CardTypes.getOfficeCard(context, document, true);
+                      else if (cardType == 'parlament')
+                        return CardTypes.getParlamentCard(
+                            context, document, true);
+                      else if (cardType == 'admin')
+                        return CardTypes.getAdminCard(context, document, true);
+                      else
+                        return null;
+                    } else {
+                      var cardType = document['cardType'];
+                      if (cardType == 'student')
+                        return CardTypes.getStudentCard(
+                            context, document, false);
+                      else if (cardType == 'professor')
+                        return CardTypes.getProfessorCard(
+                            context, document, false);
+                      else if (cardType == 'office')
+                        return CardTypes.getOfficeCard(
+                            context, document, false);
+                      else if (cardType == 'parlament')
+                        return CardTypes.getParlamentCard(
+                            context, document, false);
+                      else if (cardType == 'admin')
+                        return CardTypes.getAdminCard(context, document, false);
+                      else
+                        return null;
+                    }
+                  }).toList());
                 }
               });
         }
@@ -72,11 +80,18 @@ class PostWidget extends StatelessWidget {
     ));
   }
 
-  Future getPostList() async {
-    QuerySnapshot qn = await _databaseReference
+  Stream getPostList(List<dynamic> following) {
+    return _databaseReference
         .collection('posts')
+        .where('author', whereIn: following)
         .orderBy("timestamp", descending: true)
-        .get();
-    return qn.docs;
+        .snapshots();
+  }
+
+  Stream<DocumentSnapshot> getFollowingList() {
+    return _databaseReference
+        .collection('following')
+        .doc(FirebaseAuth.instance.currentUser.uid)
+        .snapshots();
   }
 }

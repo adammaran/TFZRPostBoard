@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:uuid/uuid.dart';
 
 import 'main.dart';
 
@@ -77,7 +76,12 @@ class AddNote extends StatelessWidget {
             'cardType': value['userType'],
             'timestamp': Timestamp.now()
           })
-          .then((value) => print('Post added to db under: '))
+          .then((value) {
+            _databaseReference.collection('posts').doc(value.id).update({
+              'id': value.id
+            });
+            print('Post added to db under: ');}
+            )
           .catchError((error) => print('Failed to add Post: $error'));
     });
   }

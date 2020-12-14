@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:linkwell/linkwell.dart';
 
-import 'UserProfileWidget.dart';
+import 'userPage/UserProfileWidget.dart';
 
 class FullPost extends StatelessWidget {
   final DocumentSnapshot snapshot;

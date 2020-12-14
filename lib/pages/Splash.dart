@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:informatortfzr/pages/AddNote.dart';
 import 'package:informatortfzr/pages/EditNote.dart';
 import 'package:informatortfzr/pages/Register.dart';
+import 'package:informatortfzr/pages/SettingsPage.dart';
 import 'TeacherRequests.dart';
 import 'package:informatortfzr/pages/main.dart';
 import 'package:splashscreen/splashscreen.dart';
@@ -27,14 +28,15 @@ Future<void> main() async {
   runApp(new MaterialApp(
     initialRoute: '/',
     routes: {
-      '/': (context) => StartApp(),
-      '/Login': (context) => LoginPage(),
-      '/Register': (context) => RegisterPageState(),
-      '/Home': (context) => MyHomePage(),
-      '/AddPost': (context) => AddNote(),
-      '/EditPost': (context) => EditNote(),
-      '/TeacherRequests': (context) => TeacherRequests(),
-    },
+  '/': (context) => StartApp(),
+  '/Login': (context) => LoginPage(),
+  '/Register': (context) => RegisterPageState(),
+  '/Home': (context) => MyHomePage(),
+  '/AddPost': (context) => AddNote(),
+  '/EditPost': (context) => EditNote(),
+  '/TeacherRequests': (context) => TeacherRequests(),
+  '/Settings': (context) => SettingsPage()
+  },
   ));
 }
 

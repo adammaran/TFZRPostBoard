@@ -26,6 +26,9 @@ dependencies:
   firebase_core : ^0.5.0
   firebase_auth: ^0.18.2
   cloud_firestore: ^0.14.2
+  firebase_storage: ^5.2.0
+  rxdart: ^0.25.0
+  image_picker: ^0.6.7+14
   uuid: ^2.2.2
   splashscreen: ^1.2.0
   linkwell: ^0.1.9

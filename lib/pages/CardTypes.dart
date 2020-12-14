@@ -11,7 +11,7 @@ class CardTypes {
   static Card getStudentCard(
       BuildContext context, DocumentSnapshot snapshot, bool hasPopUp) {
     var popUp;
-    if (hasPopUp || FirebaseAuth.instance.currentUser.uid == 'NZHoLXdzSXbx3Hdm08Xx0BFxS4D2') popUp = PopUpMenu(snapshot: snapshot);
+    if (hasPopUp || FirebaseAuth.instance.currentUser.uid == 'VMNfQCPnl4SR9rKO7RFRC5QIsQC3') popUp = PopUpMenu(snapshot: snapshot);
 
     return Card(
         child: Column(children: <Widget>[

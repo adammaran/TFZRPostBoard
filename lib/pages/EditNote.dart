@@ -72,7 +72,7 @@ class EditNote extends StatelessWidget {
   void addPostToDb() async {
     await _databaseReference
         .collection('posts')
-        .doc(snapshot.data()['uuid'])
+        .doc(snapshot.data()['id'])
         .update({
       'title': _titleController.text,
       'shortDesc': _shortDescController.text,

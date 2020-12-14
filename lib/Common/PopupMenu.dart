@@ -29,7 +29,7 @@ class PopUpMenu extends StatelessWidget {
   Future<void> deletePost() async {
     FirebaseFirestore.instance
         .collection('posts')
-        .doc(snapshot.data()['uuid'])
+        .doc(snapshot.id)
         .delete();
   }
 

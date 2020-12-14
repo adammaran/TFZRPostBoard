@@ -133,12 +133,27 @@ class RegisterPage extends State<RegisterPageState> {
         .doc(FirebaseAuth.instance.currentUser.uid)
         .set({
       'uid': FirebaseAuth.instance.currentUser.uid,
+      'avatarUrl': 'https://picsum.photos/200',
       'username': _usernameController.text,
       'email': _emailController.text,
       'userType': userType,
       'caseSearch': FieldValue.arrayUnion(getKeyWordList())
     });
+    addFollowingArray();
     Navigator.pushReplacementNamed(context, '/Home');
+  }
+
+  void addFollowingArray() {
+    List<String> following = new List();
+    following.add('DzUkpXXQTUMHoBwg9ZCBnJrZaiu2');
+    following.add('VMNfQCPnl4SR9rKO7RFRC5QIsQC3');
+    following.add('vkyFdejXW8Mt7I6r2MLmS5Di5QD3');
+    following.add(FirebaseAuth.instance.currentUser.uid);
+
+    _databaseReference
+        .collection('following')
+        .doc(FirebaseAuth.instance.currentUser.uid)
+        .set({'following': FieldValue.arrayUnion(following)});
   }
 
   void addUserToPending() async {
@@ -152,12 +167,11 @@ class RegisterPage extends State<RegisterPageState> {
     });
   }
 
-
-  List<String> getKeyWordList(){
+  List<String> getKeyWordList() {
     List<String> keyWords = new List<String>();
     String username = _usernameController.text;
-    for(int i = 0; i < _usernameController.text.length; i++){
-      keyWords.add(username.substring(0, i+1).toLowerCase());
+    for (int i = 0; i < _usernameController.text.length; i++) {
+      keyWords.add(username.substring(0, i + 1).toLowerCase());
     }
     return keyWords;
   }

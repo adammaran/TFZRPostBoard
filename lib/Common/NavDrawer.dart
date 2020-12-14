@@ -21,7 +21,9 @@ class NavDrawer extends StatelessWidget {
           ListTile(
               leading: Icon(Icons.settings),
               title: Text('Podešavanja'),
-              onTap: () {}),
+              onTap: () {
+                Navigator.pushReplacementNamed(context, '/Settings');
+              }),
           ListTile(
               leading: Icon(Icons.power_settings_new),
               title: Text('Odjava'),

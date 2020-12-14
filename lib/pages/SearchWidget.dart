@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'file:///C:/Android/informator_tfzr/lib/pages/UserProfileWidget.dart';
+import 'package:informatortfzr/pages/userPage/UserProfileWidget.dart';
 
 class SearchWidget extends StatefulWidget {
   @override
@@ -21,7 +21,7 @@ class _SearchWidgetState extends State<SearchWidget> {
           TextField(
             onChanged: (text) {
               setState(() {
-                searchKey = text;
+                searchKey = text.toLowerCase();
               });
             },
             decoration: InputDecoration(
@@ -50,22 +50,25 @@ class _SearchWidgetState extends State<SearchWidget> {
                 case ConnectionState.none:
                   return Text('Korisnik nije pronadjen');
                 default:
-                  return new ListView(
-                    children:
-                        snapshot.data.docs.map((DocumentSnapshot document) {
-                      return new Card(
-                        child: ListTile(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => UserProfile(document['uid']))
-                            );
-                          },
-                          title: Text(document['username']),
-                        ),
-                      );
-                    }).toList(),
-                  );
+                  if(searchKey != '') {
+                    return new ListView(
+                      children:
+                      snapshot.data.docs.map((DocumentSnapshot document) {
+                        return new Card(
+                          child: ListTile(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) =>
+                                      UserProfile(document['uid']))
+                              );
+                            },
+                            title: Text(document['username']),
+                          ),
+                        );
+                      }).toList(),
+                    );
+                  } else return Scaffold();
               }
             },
           ))

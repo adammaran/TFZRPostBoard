@@ -1,13 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:informatortfzr/Common/NavDrawer.dart';
 import 'package:informatortfzr/pages/AddNote.dart';
-import 'package:informatortfzr/pages/Splash.dart';
-import 'package:informatortfzr/pages/Register.dart';
-import 'file:///C:/Android/informator_tfzr/lib/pages/PostWidget.dart';
-import 'file:///C:/Android/informator_tfzr/lib/pages/SearchWidget.dart';
-import 'file:///C:/Android/informator_tfzr/lib/pages/UserProfileWidget.dart';
+import 'package:informatortfzr/pages/PostWidget.dart';
+import 'package:informatortfzr/pages/SearchWidget.dart';
+import 'package:informatortfzr/pages/userPage/UserProfileWidget.dart';
 import 'Login.dart';
 
 class MyHomePage extends StatefulWidget {
